@@ -14,16 +14,34 @@ public class GameManager : MonoBehaviour
     [Header("Debug Fields")]
     public bool debugSpawnWolves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;
 
+    public bool switchLevels { get; set;  }
+    public bool gameOver { get; set; }
+    public bool playerHasPowerUp { get; set; }
+
+
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
+    private void Awake()
+    {
+        
+    }
+    private void EnablePlayer()
+    {
+
+    }
+    private void SwitchLevels()
+    {
+
+    }
 }
+
