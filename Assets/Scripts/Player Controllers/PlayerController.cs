@@ -1,6 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+/**********************************************
+ * Component of Player
+ * 
+ * Bryce Haddock, 1/17/24
+ * *******************************************/
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +24,12 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
+        playerRB = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<SphereCollider>();
+        powerUpIndicator = GetComponent<Light>();
+        playerCollider.material.bounciness = 0.4f;
+        powerUpIndicator.intensity = 0;
 
     }
 
@@ -47,7 +60,12 @@ public class PlayerController : MonoBehaviour
     }
     private void AssignLevelValues()
     {
-
+        GameManager.Instance.playerScale = transform.localScale;
+        GameManager.Instance.playerMoveForce = moveForceMagnitude;
+        GameManager.Instance.playerDrag = playerRB.drag;
+        GameManager.Instance.playerMass = playerRB.mass;
+        focalpoint = GameObject.Find("Focal Point").transform;
+        
     }
     private void Move()
     {

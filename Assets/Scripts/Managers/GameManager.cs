@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/**************************************************
+ * Component of game manager
+ * 
+ * 
+ * Bryce Haddock,  1/17/24
+ * ***********************************************/
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [Header("Player Fields")]
     public Vector3 playerScale;
     public float playerMass, playerDrag, playerMoveForce, playerRepelForce, playerBounce;
@@ -33,7 +41,14 @@ public class GameManager : MonoBehaviour
     }
     private void Awake()
     {
-        
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        if(!Instance != this)
+        {
+            Destroy(this);
+        }
     }
     private void EnablePlayer()
     {
