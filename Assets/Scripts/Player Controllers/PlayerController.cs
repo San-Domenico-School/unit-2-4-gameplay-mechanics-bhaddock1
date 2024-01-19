@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
-
+        Move();
     }
     private void Awake()
     {
@@ -44,19 +44,23 @@ public class PlayerController : MonoBehaviour
     }
     private void OnEnable()
     {
-
+        inputAction.Enable();
+        inputAction.Player.Movement.performed += OnMovementPerformed;
+        inputAction.Player.Movement.canceled += OnMovementCanceled;
     }
     private void OnDisable()
     {
-
+        inputAction.Disable();
+        inputAction.Player.Movement.performed -= OnMovementPerformed;
+        inputAction.Player.Movement.performed -= OnMovementCanceled;
     }
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
-
+        moveDirection = value.ReadValue<Vector2>().y;
     }
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
-
+        moveDirection = 0;
     }
     private void AssignLevelValues()
     {
@@ -69,11 +73,18 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
-        
+        if(focalpoint != null)
+        {
+            playerRB.AddForce(focalpoint.forward * moveForceMagnitude * moveDirection);
+        }
     }
     private void OnColliderEnter(Collision collision)
     {
-
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            playerCollider.material.bounciness = GameManager.Instance.playerBounce;
+            AssignLevelValues();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
