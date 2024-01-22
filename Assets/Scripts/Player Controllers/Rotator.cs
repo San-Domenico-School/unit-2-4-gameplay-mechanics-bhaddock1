@@ -42,7 +42,7 @@ public class Rotator : MonoBehaviour
     }
     private void OnMovementCanceled(InputAction.CallbackContext value)
     {
-        moveDirection = 0;
+        moveDirection = 0.0f;
     }
     
 }
