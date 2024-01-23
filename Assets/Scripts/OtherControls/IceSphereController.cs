@@ -9,6 +9,12 @@ public class IceSphereController : MonoBehaviour
     private ParticleSystem iceVFX;
     private float pushForce;
 
+    /***********************************************
+     * component of ice sphere
+     * 
+     * Bryce Haddock, 1/23/24
+     * *********************************************/
+
     // Start is called before the first frame update
     private void Start()
     {
