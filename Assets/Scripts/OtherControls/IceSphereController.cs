@@ -18,22 +18,51 @@ public class IceSphereController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+        if(GameManager.Instance.debugSpawnWaves)
+        {
+            reductionEachRepeat = .5f;
+        }
+
+        iceRB = GetComponent<Rigidbody>();
+        iceVFX = GetComponent<ParticleSystem>();
+        RandomizeSizeAndMass();
+        InvokeRepeating("Melt", startDelay, 0.4f);
     }
 
     // Update is called once per frame
     private void RandomizeSizeAndMass()
     {
-        
+        transform.localScale *= 0.5f * Random.value + 0.5f;
     }
 
     private void Dissolution()
     {
+        float Volume = 4f / 3f * Mathf.PI * Mathf.Pow(transform.localScale.x, 3);
+        int numOfObjectsInScene = FindObjectsOfType<IceSphereController>().Length;
+        if(numOfObjectsInScene > 1)
+        {
+            iceVFX.Stop();
+        }
+
+        if(Volume < minimumVolume)
+        {
+            Destroy(gameObject);
+        }
+
+        
 
     }
 
     private void Melt()
     {
-
+        if((4 / 3) * Mathf.PI * Mathf.Pow(transform.localScale.x, 3) > 0.5f)
+        {
+            transform.localScale *= reductionEachRepeat;
+        }
+        else
+        {
+            Dissolution();
+        }
+        
     }
 }

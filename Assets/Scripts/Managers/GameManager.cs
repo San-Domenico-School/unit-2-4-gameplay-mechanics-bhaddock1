@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] wayPoints;
 
     [Header("Debug Fields")]
-    public bool debugSpawnWolves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;
+    public bool debugSpawnWaves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;
 
     public bool switchLevels { get; set;  }
     public bool gameOver { get; set; }
