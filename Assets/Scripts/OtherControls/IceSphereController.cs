@@ -20,7 +20,7 @@ public class IceSphereController : MonoBehaviour
     {
         if(GameManager.Instance.debugSpawnWaves)
         {
-            reductionEachRepeat = .5f;
+            reductionEachRepeat = 0.5f;
         }
 
         iceRB = GetComponent<Rigidbody>();
@@ -37,9 +37,10 @@ public class IceSphereController : MonoBehaviour
 
     private void Dissolution()
     {
+        Debug.Log("dissolution");
         float Volume = 4f / 3f * Mathf.PI * Mathf.Pow(transform.localScale.x, 3);
         int numOfObjectsInScene = FindObjectsOfType<IceSphereController>().Length;
-        if(numOfObjectsInScene > 1)
+        if(numOfObjectsInScene > 1 && Volume < 0.8f)
         {
             iceVFX.Stop();
         }
@@ -55,14 +56,10 @@ public class IceSphereController : MonoBehaviour
 
     private void Melt()
     {
-        if((4 / 3) * Mathf.PI * Mathf.Pow(transform.localScale.x, 3) > 0.5f)
-        {
+        
+        
             transform.localScale *= reductionEachRepeat;
-        }
-        else
-        {
             Dissolution();
-        }
         
     }
 }
