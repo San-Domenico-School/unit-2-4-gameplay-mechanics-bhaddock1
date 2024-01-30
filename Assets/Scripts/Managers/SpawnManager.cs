@@ -52,7 +52,14 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnIceWave()
     {
-
+        for(int i = 0; i < waveNumber; i++)
+        {
+            Instantiate(iceSphere, SetRandomPosition(1.6f), iceSphere.transform.rotation);
+        }
+        if(waveNumber < maximumWave)
+        {
+            waveNumber++;
+        }
     }
 
     private void SetObjectActive(float byWaveProbability, GameObject obj)
@@ -62,9 +69,11 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 SetRandomPosition(float posY)
     {
-        return new Vector3();
+       
 
         float randomX = Random.Range(-islandSize.x / 2, islandSize.x / 2);
+        float randomZ = Random.Range(-islandSize.z / 2, islandSize.z / 2);
+        return new Vector3(randomX, posY, randomZ);
     }
 
     private IEnumerator CountdownTimer(string objectTag)
