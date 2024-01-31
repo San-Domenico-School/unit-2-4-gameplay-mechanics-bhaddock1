@@ -42,7 +42,7 @@ public class IceSphereController : MonoBehaviour
         int numOfObjectsInScene = FindObjectsOfType<IceSphereController>().Length;
         if(numOfObjectsInScene > 1 && Volume < 0.8f)
         {
-            iceVFX.Stop();
+            //iceVFX.Stop();
         }
 
         if(Volume < minimumVolume)

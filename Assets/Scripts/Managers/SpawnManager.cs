@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
     private void Update()
     {
 
-        if(GameObject.Find("Player") != null && FindObjectsOfType<IceSphereController>().Length < 0)
+        if(GameObject.Find("Player") != null && FindObjectsOfType<IceSphereController>().Length <= 0)
         {
             SpawnIceWave();
         }
@@ -78,7 +78,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator CountdownTimer(string objectTag)
     {
-        return null;
+        yield return null;
     }
 
     

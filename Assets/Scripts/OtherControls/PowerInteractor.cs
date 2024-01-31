@@ -17,12 +17,31 @@ public class PowerInteractor : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        
+        iceSphereRb = GetComponent<Rigidbody>();
+        iceSphereController = GetComponent<IceSphereController>();
     }
 
     // Update is called once per frame
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            GameObject player = collision.gameObject;
+            Rigidbody playerRb = player.GetComponent<Rigidbody>();
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            if (player.GetComponent<PlayerController>().hasPowerUp)
+            {
+                iceSphereRb.AddForce(-direction * playerRb.mass * GameManager.Instance.playerRepelForce, ForceMode.Impulse);
+            }
+            else
+            {
+                playerRb.AddForce(direction, ForceMode.Impulse);
+            }
+                    
+               
+
+            
+        }
     }
 }
