@@ -30,13 +30,13 @@ public class PowerInteractor : MonoBehaviour
             Rigidbody playerRb = player.GetComponent<Rigidbody>();
             PlayerController playerController = player.GetComponent<PlayerController>();
             Vector3 direction = (player.transform.position - transform.position).normalized;
-            if (player.GetComponent<PlayerController>().hasPowerUp)
+            if (playerController.hasPowerUp)
             {
                 iceSphereRb.AddForce(-direction * playerRb.mass * GameManager.Instance.playerRepelForce, ForceMode.Impulse);
             }
             else
             {
-                playerRb.AddForce(direction, ForceMode.Impulse);
+                playerRb.AddForce(direction * iceSphereRb.mass, ForceMode.Force);
             }
                     
                

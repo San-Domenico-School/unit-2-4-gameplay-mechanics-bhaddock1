@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     [Header("Debug Fields")]
     public bool debugSpawnWaves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;
 
-    public bool switchLevels { get; set;  }
-    public bool gameOver { get; set; }
-    public bool playerHasPowerUp { get; set; }
+    public bool switchLevels { get; private set;  }
+    public bool gameOver { get; private set; }
+    public bool playerHasPowerUp { get; private set; }
 
 
 
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        if(!Instance != this)
+        else if (Instance != this)
         {
             Destroy(this);
         }

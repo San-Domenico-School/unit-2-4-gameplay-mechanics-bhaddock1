@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private Transform focalpoint;
     private float moveForceMagnitude;
     private float moveDirection;
-    public bool hasPowerUp { get; set; }
+    public bool hasPowerUp { get; private set; }
 
 
     // Start is called before the first frame update
@@ -50,10 +50,11 @@ public class PlayerController : MonoBehaviour
         inputAction.Enable();
         inputAction.Player.Movement.performed += OnMovementPerformed;
         inputAction.Player.Movement.canceled += OnMovementCanceled;
-
-        if (GameManager.Instance.debugPowerUpRepel)
+        if(GameManager.Instance.debugPowerUpRepel)
         {
+            Debug.Log("true!!!!");
             hasPowerUp = true;
+            
         }
     }
 

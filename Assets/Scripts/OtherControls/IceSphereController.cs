@@ -37,7 +37,7 @@ public class IceSphereController : MonoBehaviour
 
     private void Dissolution()
     {
-        Debug.Log("dissolution");
+        
         float Volume = 4f / 3f * Mathf.PI * Mathf.Pow(transform.localScale.x, 3);
         int numOfObjectsInScene = FindObjectsOfType<IceSphereController>().Length;
         if(numOfObjectsInScene > 1 && Volume < 0.8f)
