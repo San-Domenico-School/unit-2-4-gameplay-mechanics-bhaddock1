@@ -12,14 +12,16 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [Header("Objects to Spawn")]
-    [SerializeField] private GameObject iceSphere, portal, powerUp;
+    [SerializeField] private GameObject iceSphere;
+    [SerializeField] private GameObject portal;
+    [SerializeField] private GameObject powerUp;
 
     [Header("Wave Fields")]
     [SerializeField] private int initialWave, increaseEachWave, maximumWave;
 
     [Header("Portal Fields")]
     [SerializeField] private int portalFirstAppearance;
-    [SerializeField] private float portalUpByWaveDuration, portalUpByWaveProbability;
+    [SerializeField] private float portalByWaveDuration, portalByWaveProbability;
 
     [Header("PowerUp Fields")]
     [SerializeField] private int powerUpFirstAppearance;
@@ -35,6 +37,10 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
+        if(GameManager.Instance.debugSpawnPortal)
+        {
+            portalByWaveDuration = 99;
+        }
         islandSize = island.GetComponent<MeshCollider>().bounds.size;
 
         waveNumber = 1;
@@ -47,6 +53,11 @@ public class SpawnManager : MonoBehaviour
         if(GameObject.Find("Player") != null && FindObjectsOfType<IceSphereController>().Length <= 0)
         {
             SpawnIceWave();
+        }
+
+        if(waveNumber > portalFirstAppearance || (GameManager.Instance.debugSpawnPortal = true && !gameObject.CompareTag("Portal")))
+        {
+            SetObjectActive(portalByWaveProbability, portal);
         }
     }
 
@@ -64,7 +75,11 @@ public class SpawnManager : MonoBehaviour
 
     private void SetObjectActive(float byWaveProbability, GameObject obj)
     {
-
+        if(Random.value < waveNumber * byWaveProbability * Time.deltaTime)
+        {
+            obj.transform.position = SetRandomPosition(-0.65f);
+            StartCoroutine(CountdownTimer(obj.tag));
+        }
     }
 
     private Vector3 SetRandomPosition(float posY)
@@ -78,7 +93,25 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator CountdownTimer(string objectTag)
     {
-        yield return null;
+        float byWaveDuration = 0;
+
+        switch(objectTag)
+        {
+            case "Portal":
+                portal.SetActive(true);
+                portalActive = true;
+                byWaveDuration = portalByWaveDuration;
+                break;
+        }
+
+        yield return new WaitForSecondsRealtime(waveNumber * byWaveDuration);
+        switch(objectTag)
+        {
+            case "Portal":
+                portal.SetActive(false);
+                portalActive = false;
+                break;
+        }
     }
 
     

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /**************************************************
  * Component of game manager
  * 
@@ -18,13 +19,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Fields")]
     public GameObject[] wayPoints;
+    public float numberOfLevels;
 
     [Header("Debug Fields")]
     public bool debugSpawnWaves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;
 
-    public bool switchLevels { get; private set;  }
-    public bool gameOver { get; private set; }
-    public bool playerHasPowerUp { get; private set; }
+    public bool switchLevels { get; set;  }
+    public bool gameOver { get; set; }
+    public bool playerHasPowerUp { get; set; }
 
 
 
@@ -37,10 +39,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        if(switchLevels)
+        {
+            SwitchLevels();
+        }
     }
     private void Awake()
     {
+        
         if(Instance == null)
         {
             Instance = this;
@@ -56,7 +62,22 @@ public class GameManager : MonoBehaviour
     }
     private void SwitchLevels()
     {
+        switchLevels = false;
 
+
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        int nextLevel = int.Parse(currentScene.Substring(5)) + 1;
+
+        if(nextLevel <= SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene("Level " + nextLevel.ToString());
+        }
+        else
+        {
+            gameOver = true;
+            Debug.Log("You Won");
+        }
     }
 }
 
