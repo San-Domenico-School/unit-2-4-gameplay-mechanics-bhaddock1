@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Fields")]
     public float numberOfLevels;
+    public GameObject[] waypoints;
 
     [Header("Debug Fields")]
     public bool debugSpawnWaves, debugSpawnPortal, debugSpawnPowerUp, debugPowerUpRepel;

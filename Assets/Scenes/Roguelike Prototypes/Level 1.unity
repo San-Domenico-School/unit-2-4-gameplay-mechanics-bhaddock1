@@ -156,16 +156,16 @@ MonoBehaviour:
   iceSphere: {fileID: 7715176862233910875, guid: f0bcddb8700c44bc58212d88f75428e3,
     type: 3}
   portal: {fileID: 295033723059093568}
-  powerUp: {fileID: 0}
+  powerUp: {fileID: 295033723059093568}
   initialWave: 1
   increaseEachWave: 1
   maximumWave: 3
   portalFirstAppearance: 2
   portalByWaveDuration: 3
   portalByWaveProbability: 0.03
-  powerUpFirstAppearance: 0
-  powerUpByWaveProbability: 0
-  powerUpByWaveDuration: 0
+  powerUpFirstAppearance: 2
+  powerUpByWaveProbability: 0.04
+  powerUpByWaveDuration: 2.75
   island: {fileID: 1403545341}
 --- !u!4 &18124121
 Transform:
@@ -1035,11 +1035,11 @@ MonoBehaviour:
   playerMoveForce: 120
   playerRepelForce: 2
   playerBounce: 0.75
-  wayPoints: []
   numberOfLevels: 2
+  waypoints: []
   debugSpawnWaves: 0
   debugSpawnPortal: 1
-  debugSpawnPowerUp: 0
+  debugSpawnPowerUp: 1
   debugPowerUpRepel: 0
 --- !u!4 &293198666864179756
 Transform:

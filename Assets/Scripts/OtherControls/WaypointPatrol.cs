@@ -5,14 +5,15 @@ using UnityEngine.AI;
 
 public class WaypointPatrol : MonoBehaviour
 {
-    [SerializeField] private GameObject[] wayPoints;
+    private GameObject[] waypoints;
     private NavMeshAgent navMeshAgent;
     private int wayPointIndex;
     // Start is called before the first frame update
     private void Start()
     {
+        waypoints = GameManager.Instance.waypoints;
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-        wayPointIndex = Random.Range(0, wayPoints.Length);
+        wayPointIndex = Random.Range(0, waypoints.Length);
     }
 
     // Update is called once per frame
@@ -23,10 +24,10 @@ public class WaypointPatrol : MonoBehaviour
 
     private void MoveToNextWaypoint()
     {
-        navMeshAgent.SetDestination(gameObject.transform.position);
-        if(navMeshAgent.remainingDistance < 0.1f && !navMeshAgent.pathPending)
+        navMeshAgent.SetDestination(waypoints[wayPointIndex].transform.position);
+        if(navMeshAgent.remainingDistance < 3f && wayPointIndex < 15 && !navMeshAgent.pathPending)
         {
-            
+            wayPointIndex = ++wayPointIndex;
         }
     }
 }
